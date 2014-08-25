@@ -124,11 +124,10 @@ class UserManagerAdmin
 			$columnID++;
 		}
 
-		$users = get_users();
-		if (count($users) <= 0)
-		{
-			$spreadsheetObject->downloadFile();
-		}
+		$users = get_users(array(
+			'orderby'  => 'last_name',
+			'order'    => 'ASC'
+		));
 
 		// Loop through users as rows
 		foreach ($users as $rowID => $user)

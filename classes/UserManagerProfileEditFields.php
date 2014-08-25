@@ -8,11 +8,29 @@ class UserManagerProfileEditFields
 	{
 		$this->userManagerMain = $userManagerMain;
 
+		add_action('user_new_form', array($this, 'addAddFields'));
+
+		add_action('user_register', array($this, 'saveEditFields'));
+
 		add_action("show_user_profile", array($this, "addEditFields"));
 		add_action("edit_user_profile", array($this, "addEditFields"));
 
 		add_action("personal_options_update", array($this, "saveEditFields"));
 		add_action("edit_user_profile_update", array($this, "saveEditFields"));
+	}
+
+
+
+	/**
+	 * Adds the additional fields to the create a new user page.
+	 */
+	public function addAddFields()
+	{
+		$data             = new stdClass();
+		$data->editFields = self::getEditFields(false);
+		$data->viewPath   = $this->userManagerMain->getViewPath(__CLASS__);
+
+		include $data->viewPath . "editFields.php";
 	}
 
 	/**
