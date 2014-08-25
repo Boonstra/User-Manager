@@ -17,9 +17,24 @@ class UserManagerProfileEditFields
 
 		add_action("personal_options_update", array($this, "saveEditFields"));
 		add_action("edit_user_profile_update", array($this, "saveEditFields"));
+
+		add_filter('show_password_fields', array($this, 'hidePasswordFieldOnCreateUser'));
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function hidePasswordFieldOnCreateUser()
+	{
+		global $pagenow;
 
+		if ($pagenow === 'user-new.php')
+		{
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Adds the additional fields to the create a new user page.
