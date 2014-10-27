@@ -30,6 +30,24 @@ class UserManagerProfileEditFields
 
 		if ($pagenow === 'user-new.php')
 		{
+			$password = wp_generate_password();
+
+			echo '<input name="pass1" data-value="' . $password . '" type="hidden" id="pass1" autocomplete="off" />' .
+			     '<input name="pass2" data-value="' . $password . '" type="hidden" id="pass2" autocomplete="off" />';
+
+			echo '
+				<script type="text/javascript">
+					setTimeout(function()
+					{
+						var password1      = document.getElementById("pass1"),
+							password2      = document.getElementById("pass2");
+
+						password1.value = password1.getAttribute("data-value");
+						password2.value = password2.getAttribute("data-value");
+					}, 1000);
+				</script>
+			';
+
 			return false;
 		}
 
